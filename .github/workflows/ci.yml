@@ -1,0 +1,57 @@
+name: CI - Dog API Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Configurar JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Cache dependências Maven
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    - name: Executar testes
+      run: mvn clean test -f "Testes South System/Api/pom.xml"
+      
+    - name: Gerar relatório Allure
+      run: mvn allure:report -f "Testes South System/Api/pom.xml"
+      if: always()
+      
+    - name: Upload resultados Allure
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: allure-results
+        path: "Testes South System/Api/target/allure-results/"
+        
+    - name: Upload relatório Allure
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: allure-report
+        path: "Testes South System/Api/target/allure-results/allure-report/"
+
+    - name: Deploy relatório no GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: "Testes South System/Api/target/allure-results/allure-report"

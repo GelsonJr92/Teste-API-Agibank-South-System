@@ -1,0 +1,34 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "java.compile.nullAnalysis.mode": "automatic",
+        "java.project.sourcePaths": [
+            "src/main/java",
+            "src/test/java"
+        ],
+        "java.project.outputPath": "target/classes",
+        "java.project.referencedLibraries": [
+            "lib/**/*.jar"
+        ],
+        "files.exclude": {
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/target": false
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "vscjava.vscode-java-pack",
+            "redhat.java",
+            "vscjava.vscode-maven"
+        ]
+    }
+}

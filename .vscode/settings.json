@@ -1,0 +1,16 @@
+{
+    "java.project.sourcePaths": [
+        "src/main/java",
+        "src/test/java"
+    ],
+    "java.project.outputPath": "target/classes",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.saveActions.organizeImports": true,
+    "java.format.enabled": true,
+    "java.completion.enabled": true,
+    "java.sources": {
+        "src/main/java": "main",
+        "src/test/java": "test"
+    }
+}
