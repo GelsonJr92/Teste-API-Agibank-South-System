@@ -39,6 +39,7 @@ jobs:
     - name: Gerar relatório Allure
       run: mvn allure:report
       if: always()
+      continue-on-error: true
       
     - name: Upload resultados Allure
       uses: actions/upload-artifact@v4
@@ -56,7 +57,7 @@ jobs:
 
     - name: Deploy relatório no GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main' && hashFiles('target/allure-results/allure-report/**') != ''
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: target/allure-results/allure-report
